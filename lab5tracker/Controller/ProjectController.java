@@ -38,10 +38,14 @@ public class ProjectController {
     }
 
 
-    @PutMapping("/change-status/{index}/{status}")
+ @PutMapping("/change-status/{index}/{status}")
     public ApiResponse changeStatus(@PathVariable int index,@PathVariable String status) {
         if(projects.get(index).getStatus().equalsIgnoreCase("done")){
             return new ApiResponse("Project already done");}
+        
+        if (status.equalsIgnoreCase("not done")&& projects.get(index).getStatus().equalsIgnoreCase("not done"))
+            return new ApiResponse("no changes to save");
+
         projects.get(index).setStatus(status);
         return new ApiResponse("Project status updated to done successfully");
     }
