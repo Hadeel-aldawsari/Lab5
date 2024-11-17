@@ -29,6 +29,7 @@ public class EventController {
     @PutMapping("/update/{index}")
     public ApiResponse updateEvent(@RequestBody Event event , @PathVariable int index){
         if(index>events.size()) return new ApiResponse("Event index out of bounds");
+         if(event.getStartDate().isAfter(event.getEndDate()))  return new ApiResponse("Start date can't be after end date");
         events.set(index, event);
         return new ApiResponse("Event updated successfully");
     }
